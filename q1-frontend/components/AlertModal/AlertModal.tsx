@@ -6,7 +6,7 @@ interface AlertModalProps {
 }
 
 export default function AlertModal({ useContents }: AlertModalProps) {
-  function onSubmitEvent(e: FormEvent<HTMLFormElement>) {
+  function OnSubmitEvent(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newAlert = (e.target as any).elements[0].value;
     useContents((prev) => ({
@@ -19,7 +19,7 @@ export default function AlertModal({ useContents }: AlertModalProps) {
   }
 
   return (
-    <form data-testid="form" onSubmit={onSubmitEvent}>
+    <form data-testid="form" onSubmit={OnSubmitEvent}>
       <label> Add new alert: </label>
       <input type="text" id="alert" name="alert" />
       <button type="submit"> Add </button>
