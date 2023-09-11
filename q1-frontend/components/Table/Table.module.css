@@ -18,3 +18,10 @@
   flex: 1 1 0px;
   flex-direction: column;
 }
+
+.date {
+  align-items: end;
+  font-size: x-small;
+  justify-content: center;
+  color: blue;
+}

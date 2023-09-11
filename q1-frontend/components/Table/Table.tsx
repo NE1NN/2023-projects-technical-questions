@@ -26,7 +26,7 @@ export interface TableContents {
 
 export default function Table() {
   const [contents, useContents] = useState<TableContents>({
-    columnTitles: ['Alert', 'Status', 'Updates'],
+    columnTitles: ['Alert', 'Status', 'Updates', ''],
     rowContents: [
       {
         alert: 'food',
@@ -50,7 +50,7 @@ export default function Table() {
       },
       {
         alert: 'Done!',
-        status: '<YOUR NAME>',
+        status: 'NE1NN',
         updates: [],
       },
     ],
@@ -74,6 +74,11 @@ export default function Table() {
             <div className={styles.item}>
               {content.updates.map((update) => (
                 <div>{update.update}</div>
+              ))}
+            </div>
+            <div className={styles.item + ' ' + styles.date}>
+              {content.updates.map((update) => (
+                <div>{update.date}</div>
               ))}
             </div>
           </div>
