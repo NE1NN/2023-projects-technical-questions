@@ -39,7 +39,6 @@ function calculateDistance(p1: location, p2: location): number {
 
 // /lassoable returns all the space animals a space cowboy can lasso given their name
 app.get('/lassoable', (req, res) => {
-  // TODO: fill me in
   const cowboyName = req.query.cowboy_name;
 
   const cowboy = spaceDatabase.find(
@@ -58,10 +57,11 @@ app.get('/lassoable', (req, res) => {
       const distance = calculateDistance(cowboy.location, e.location);
       return distance <= cowboy.metadata.lassoLength;
     });
+
     const formattedOutput = lassoableAnimals.map((entity) => {
       if (entity.type === 'space_animal') {
         return {
-          type: entity.metadata.type, // This is safe now due to the conditional check
+          type: entity.metadata.type,
           location: entity.location,
         };
       }
