@@ -31,9 +31,43 @@ app.post('/entity', (req, res) => {
   res.status(200).send();
 });
 
+function calculateDistance(p1: location, p2: location): number {
+  const dx = p1.x - p2.x;
+  const dy = p1.y - p2.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
 // /lassoable returns all the space animals a space cowboy can lasso given their name
 app.get('/lassoable', (req, res) => {
   // TODO: fill me in
+  const cowboyName = req.query.cowboy_name;
+
+  const cowboy = spaceDatabase.find(
+    (e) => e.type === 'space_cowboy' && e.metadata.name === cowboyName
+  );
+
+  if (!cowboy) {
+    res.status(404).send();
+    return;
+  }
+
+  if (cowboy.type === 'space_cowboy') {
+    const lassoableAnimals = spaceDatabase.filter((e) => {
+      if (e.type !== 'space_animal') return false;
+
+      const distance = calculateDistance(cowboy.location, e.location);
+      return distance <= cowboy.metadata.lassoLength;
+    });
+    const formattedOutput = lassoableAnimals.map((entity) => {
+      if (entity.type === 'space_animal') {
+        return {
+          type: entity.metadata.type, // This is safe now due to the conditional check
+          location: entity.location,
+        };
+      }
+    });
+    res.status(200).json({ space_animals: formattedOutput });
+  }
 });
 
 app.listen(8080);
